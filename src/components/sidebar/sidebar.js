@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import { Button } from '@material-ui/core';
+import MenuIcon from '@material-ui/icons/Menu';
 import { connect } from 'react-redux';
 import { toggleDrawer } from '../../actions/sidebar';
+import './sidebar.scss';
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatch = (dispatch) => {
   return {
     toggleDrawer: drawer => dispatch(toggleDrawer())
   }
@@ -12,29 +13,33 @@ const mapDispatchToProps = (dispatch) => {
 
 class ConnectedSidebar extends Component {
 
-  sideList = () => {
-    return <span> Valami </span>;
-  }
-
   render() {
     return (
-      <div>
-        <Button onClick={this.props.toggleDrawer}> Open </Button>
+      <React.Fragment>
+        <MenuIcon className='icon' onClick={this.props.toggleDrawer}/>
         <Drawer anchor='right' open={this.props.open} onClose={this.props.toggleDrawer}>
           <div onClick={this.props.toggleDrawer} onKeyDown={this.props.toggleDrawer}>
-            {this.sideList()}
+            <div>
+              Current tickets
+           </div>
+            <div>
+              Contact support
+            </div>
+            <div>
+              Username
+            </div>
           </div>
         </Drawer>
-      </div>
+      </React.Fragment>
     )
   }
 }
 
-const mapStateToProps = (state) => {
+const mapState = (state) => {
   return {
-    open: state.open
+    open: state.sidebarReducer.open
   }
 }
 
-const Sidebar = connect(mapStateToProps, mapDispatchToProps)(ConnectedSidebar);
+const Sidebar = connect(mapState, mapDispatch)(ConnectedSidebar);
 export default Sidebar;

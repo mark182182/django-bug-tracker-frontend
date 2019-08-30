@@ -5,10 +5,13 @@ const initialState = {
 };
 
 const bugReducer = (state = initialState, action) => {
-  if (action.type === ADD_BUG) {
-    return Object.assign({}, state, {
-      bugs: state.bugs.concat(action.payload)
-    });
+  switch (action.type) {
+    case ADD_BUG:
+      return Object.assign({}, state, {
+        bugs: state.bugs.concat(action.payload)
+      });
+    default:
+      break;
   }
   return state;
 }

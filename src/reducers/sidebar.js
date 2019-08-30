@@ -6,16 +6,17 @@ const initialState = {
 }
 
 const sidebarReducer = (state = initialState, action) => {
-  if (action.type === TOGGLE_DRAWER) {
-    return Object.assign({}, state, {
-      open: !state.open
-    });
-  }
-
-  if (action.type === DATA_LOADED) {
-    return Object.assign({}, state, {
-      gameInfo: state.gameInfo.concat(action.payload)
-    });
+  switch (action.type) {
+    case (TOGGLE_DRAWER):
+      return Object.assign({}, state, {
+        open: !state.open
+      });
+    case (DATA_LOADED):
+      return Object.assign({}, state, {
+        gameInfo: state.gameInfo.concat(action.payload)
+      });
+    default:
+      break;
   }
   return state;
 }
